@@ -1,3 +1,25 @@
+#
+https://github.com/ForgottenOneNyx/Open-Pose-Keras 를 fork하고 사용하기 편하게
+
+wrapper 클래스를 추가.
+
+다음과 같이 사용 가능하다.
+
+```
+from open_pose_wrapper import OpenPoseWrapper
+model = OpenPoseWrapper()
+
+file_name = "yuna.jpg"
+all_peaks, subset, candidate = model.extract(file_name)
+model.draw_result(file_name, all_peaks, subset, candidate, draw_dot=True, draw_line=True)
+
+model.extract_and_draw(file_name)
+```
+
+
+<br>
+
+
 ### About this fork
 
 This fork contains **pure python version** of [Realtime Multi-Person Pose Estimation](https://github.com/ZheC/Realtime_Multi-Person_Pose_Estimation). Initially it was forked from [Michal Faber fork](https://github.com/michalfaber/keras_Realtime_Multi-Person_Pose_Estimation), all credit for porting original work to Keras goes to him.
