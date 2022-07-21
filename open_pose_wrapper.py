@@ -357,7 +357,7 @@ def extract(model, file_name_or_image):
   return all_peaks, subset, candidate
 
 
-def draw_result(test_image, all_peaks, subset, candidate, draw_dot=True, draw_line=True):
+def draw_result(file_name_or_image, all_peaks, subset, candidate, draw_dot=True, draw_line=True):
 
   # visualize
   colors = [[255, 0, 0], [255, 85, 0], [255, 170, 0], [255, 255, 0], [170, 255, 0], [85, 255, 0], [0, 255, 0], \
@@ -365,7 +365,10 @@ def draw_result(test_image, all_peaks, subset, candidate, draw_dot=True, draw_li
             [170, 0, 255], [255, 0, 255], [255, 0, 170], [255, 0, 85]]
   cmap = matplotlib.cm.get_cmap('hsv')
 
-  canvas = cv2.imread(test_image) # B,G,R order
+  if type(file_name_or_image) is np.ndarray:
+    canvas = cv2.cvtColor(file_name_or_image, cv2.COLOR_RGB2BGR)
+  elif type(file_name_or_image) is str:
+    canvas = cv2.imread(file_name_or_image) # B,G,R order
 
   if draw_dot:
     cur_canvas = canvas.copy()
