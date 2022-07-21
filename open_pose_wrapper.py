@@ -140,9 +140,12 @@ limbSeq = [[2,3], [2,6], [3,4], [4,5], [6,7], [7,8], [2,9], [9,10], \
           [1,16], [16,18], [3,17], [6,18]]
 
 
-def extract(model, file_name):
+def extract(model, file_name_or_image):
 
-  oriImg = cv2.imread(file_name) # B,G,R order
+  if type(file_name_or_image) is np.ndarray:
+    oriImg = cv2.cvtColor(file_name_or_image, cv2.COLOR_RGB2BGR)
+  elif type(file_name_or_image) is str:
+    oriImg = cv2.imread(file_name_or_image) # B,G,R order
 
   param, model_params = config_reader()
 
