@@ -353,12 +353,10 @@ def extract(model, file_name_or_image):
           deleteIdx.append(i)
   subset = np.delete(subset, deleteIdx, axis=0)
 
-
   return all_peaks, subset, candidate
 
 
-def draw_result(file_name_or_image, all_peaks, subset, candidate, draw_dot=True, draw_line=True):
-
+def get_skeleton_image(file_name_or_image, all_peaks, subset, candidate, draw_dot=True, draw_line=True):
   # visualize
   colors = [[255, 0, 0], [255, 85, 0], [255, 170, 0], [255, 255, 0], [170, 255, 0], [85, 255, 0], [0, 255, 0], \
             [0, 255, 85], [0, 255, 170], [0, 255, 255], [0, 170, 255], [0, 85, 255], [0, 0, 255], [85, 0, 255], \
@@ -403,10 +401,14 @@ def draw_result(file_name_or_image, all_peaks, subset, candidate, draw_dot=True,
             cv2.fillConvexPoly(cur_canvas, polygon, colors[i])
             canvas = cv2.addWeighted(canvas, 0.4, cur_canvas, 0.6, 0)
 
+  return canvas[:,:,[2,1,0]]
+
+
+def draw_result(file_name_or_image, all_peaks, subset, candidate, draw_dot=True, draw_line=True):
+  canvas = get_skeleton_image(file_name_or_image, all_peaks, subset, candidate, draw_dot, draw_line)
   plt.imshow(canvas[:,:,[2,1,0]])
   fig = matplotlib.pyplot.gcf()
   fig.set_size_inches(12, 12)
-
 
 class OpenPoseWrapper():
 
@@ -422,6 +424,9 @@ class OpenPoseWrapper():
 
   def draw_result(self, file_name, all_peaks, subset, candidate, draw_dot=True, draw_line=True):
     draw_result(file_name, all_peaks, subset, candidate, draw_dot=draw_dot, draw_line=draw_line)
+
+  def get_skeleton_image(self, file_name, all_peaks, subset, candidate, draw_dot=True, draw_line=True):
+    return get_skeleton_image(file_name, all_peaks, subset, candidate, draw_dot=True, draw_line=True)
 
   def _load_model(self, model_file):
     if model_file is None:
