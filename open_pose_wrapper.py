@@ -377,10 +377,6 @@ def get_skeleton_image(file_name_or_image, all_peaks, subset, candidate, draw_do
             cv2.circle(cur_canvas, all_peaks[i][j][0:2], 4, colors[i], thickness=-1)
 
     canvas = cv2.addWeighted(canvas, 0.3, cur_canvas, 0.7, 0)
-    plt.imshow(canvas[:,:,[2,1,0]])
-
-    fig = matplotlib.pyplot.gcf()
-    fig.set_size_inches(12, 12)
 
   if draw_line:
     stickwidth = 4
