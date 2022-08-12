@@ -15,7 +15,17 @@ model.draw_result(file_name, all_peaks, subset, candidate, draw_dot=True, draw_l
 
 model.extract_and_draw(file_name)
 ```
+or
+```
+from open_pose_wrapper import OpenPoseWrapper
+model = OpenPoseWrapper()
 
+image = cv2.imread(file_name)
+all_peaks, subset, candidate = model.extract(image)
+model.draw_result(file_name, all_peaks, subset, candidate, draw_dot=True, draw_line=True)
+
+model.extract_and_draw(image)
+```
 
 <br>
 
